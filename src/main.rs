@@ -5,16 +5,20 @@ pub struct Symbol {
     pub name: String,
 }
 
+impl Symbol {
+    pub fn new(name: String) -> Self {
+        Symbol {
+            name,
+        }
+    }
+}
+
 fn main() {
     let mut symbols = Vec::<Symbol>::new();
 
     symbols.append(&mut vec![
-        Symbol {
-            name: "BTCUSD".to_string(),
-        },
-        Symbol {
-            name: "BNBUSD".to_string(),
-        },
+        Symbol::new("BTCUSD".to_string()),
+        Symbol::new("BNBUSD".to_string()),
     ]);
     println!("symbols={:#?}", symbols);
 
