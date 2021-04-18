@@ -7,13 +7,11 @@ pub struct Symbol {
 
 impl Symbol {
     pub fn new(name: String) -> Self {
-        Symbol {
-            name,
-        }
+        Symbol { name }
     }
 }
 
-fn create_hash_map<'a>(symbols: &'a Vec<Symbol>) -> HashMap<&'a str, &'a Symbol> {
+fn create_hash_map(symbols: &Vec<Symbol>) -> HashMap<&str, &Symbol> {
     let mut hm = HashMap::<&str, &Symbol>::new();
     for sym in symbols {
         hm.insert(&sym.name, &sym);
