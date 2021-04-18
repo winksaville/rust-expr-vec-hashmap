@@ -11,7 +11,7 @@ impl Symbol {
     }
 }
 
-fn create_hash_map(symbols: &Vec<Symbol>) -> HashMap<&str, &Symbol> {
+fn create_hash_map(symbols: &[Symbol]) -> HashMap<&str, &Symbol> {
     let mut hm = HashMap::<&str, &Symbol>::new();
     for sym in symbols {
         hm.insert(&sym.name, &sym);
