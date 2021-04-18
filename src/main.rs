@@ -13,6 +13,15 @@ impl Symbol {
     }
 }
 
+fn create_hash_map<'a>(symbols: &'a Vec<Symbol>) -> HashMap<&'a str, &'a Symbol> {
+    let mut hm = HashMap::<&str, &Symbol>::new();
+    for sym in symbols {
+        hm.insert(&sym.name, &sym);
+    }
+
+    hm
+}
+
 fn main() {
     let mut symbols = Vec::<Symbol>::new();
 
@@ -20,10 +29,11 @@ fn main() {
         Symbol::new("BTCUSD".to_string()),
         Symbol::new("BNBUSD".to_string()),
     ]);
-    println!("symbols={:#?}", symbols);
+    //println!("symbols={:#?}", symbols);
 
-    let mut symbols_hm = HashMap::<&str, &Symbol>::new();
-    symbols_hm.insert(&symbols[0].name, &symbols[0]);
-    symbols_hm.insert(&symbols[1].name, &symbols[1]);
-    println!("symbols_hm={:#?}", symbols_hm);
+    let symbols_hm = create_hash_map(&symbols);
+    //println!("symbols_hm={:#?}", symbols_hm);
+    println!("BTCUSD={:#?}", symbols_hm.get("BTCUSD"));
+    println!("BNBUSD={:#?}", symbols_hm.get("BNBUSD"));
+    println!("XYZUSD={:#?}", symbols_hm.get("XYZUSD"));
 }
