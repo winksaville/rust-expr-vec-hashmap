@@ -1,3 +1,4 @@
+use chrono::prelude::*;
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -22,8 +23,32 @@ fn create_hash_map(symbols: &[Symbol]) -> HashMap<&str, &Symbol> {
 
 #[derive(Debug)]
 pub struct ExchangeInfo {
-    pub server_time: u64,
+    pub server_time: i64,
     pub symbols: Vec<Symbol>,
+}
+
+impl Default for ExchangeInfo {
+    fn default() -> ExchangeInfo {
+        ExchangeInfo {
+            server_time: 0,
+            symbols: vec![],
+        }
+    }
+}
+
+impl ExchangeInfo {
+    pub fn new() -> ExchangeInfo {
+        let mut ei = ExchangeInfo::default();
+        ei.update_server_time();
+
+        ei
+    }
+
+    pub fn update_server_time(&mut self) -> &Self {
+        self.server_time = Utc::now().timestamp_millis();
+
+        self
+    }
 }
 
 fn main() {
@@ -35,10 +60,7 @@ fn main() {
     ]);
     //println!("symbols={:#?}", symbols);
 
-    let ei = ExchangeInfo {
-        server_time: 0,
-        symbols: vec![],
-    };
+    let ei = ExchangeInfo::new();
     println!("ei={:#?}", ei);
 
     let symbols_hm = create_hash_map(&symbols);
