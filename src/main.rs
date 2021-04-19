@@ -12,7 +12,7 @@ impl Symbol {
     }
 }
 
-fn create_hash_map(symbols: &[Symbol]) -> HashMap<&str, &Symbol> {
+pub fn create_hash_map(symbols: &[Symbol]) -> HashMap<&str, &Symbol> {
     let mut hm = HashMap::<&str, &Symbol>::new();
     for sym in symbols {
         hm.insert(&sym.name, &sym);
@@ -52,6 +52,15 @@ impl ExchangeInfo {
         self.symbols.push(sym);
         self
     }
+
+    pub fn get_symbol(&self, name: &str) -> Option<&Symbol> {
+        for sym in &self.symbols {
+            if name == sym.name {
+                return Some(sym);
+            }
+        }
+        None
+    }
 }
 
 fn main() {
@@ -61,9 +70,9 @@ fn main() {
     ei.add_symbol(Symbol::new("BNBUSD".to_string()));
     println!("ei={:#?}", ei);
 
-    let symbols_hm = create_hash_map(&ei.symbols);
+    //let symbols_hm = create_hash_map(&ei.symbols);
     //println!("symbols_hm={:#?}", symbols_hm);
-    println!("BTCUSD={:#?}", symbols_hm.get("BTCUSD"));
-    println!("BNBUSD={:#?}", symbols_hm.get("BNBUSD"));
-    println!("XYZUSD={:#?}", symbols_hm.get("XYZUSD"));
+    println!("BTCUSD={:#?}", ei.get_symbol("BTCUSD"));
+    println!("BNBUSD={:#?}", ei.get_symbol("BNBUSD"));
+    println!("XYZUSD={:#?}", ei.get_symbol("XYZUSD"));
 }
