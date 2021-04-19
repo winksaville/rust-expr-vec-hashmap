@@ -20,6 +20,12 @@ fn create_hash_map(symbols: &[Symbol]) -> HashMap<&str, &Symbol> {
     hm
 }
 
+#[derive(Debug)]
+pub struct ExchangeInfo {
+    pub server_time: u64,
+    pub symbols: Vec<Symbol>,
+}
+
 fn main() {
     let mut symbols = Vec::<Symbol>::new();
 
@@ -28,6 +34,12 @@ fn main() {
         Symbol::new("BNBUSD".to_string()),
     ]);
     //println!("symbols={:#?}", symbols);
+
+    let ei = ExchangeInfo {
+        server_time: 0,
+        symbols: vec![],
+    };
+    println!("ei={:#?}", ei);
 
     let symbols_hm = create_hash_map(&symbols);
     //println!("symbols_hm={:#?}", symbols_hm);
