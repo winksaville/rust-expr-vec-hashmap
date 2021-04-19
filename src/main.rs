@@ -40,30 +40,28 @@ impl ExchangeInfo {
     pub fn new() -> ExchangeInfo {
         let mut ei = ExchangeInfo::default();
         ei.update_server_time();
-
         ei
     }
 
     pub fn update_server_time(&mut self) -> &Self {
         self.server_time = Utc::now().timestamp_millis();
+        self
+    }
 
+    pub fn add_symbol(&mut self, sym: Symbol) -> &Self {
+        self.symbols.push(sym);
         self
     }
 }
 
 fn main() {
-    let mut symbols = Vec::<Symbol>::new();
-
-    symbols.append(&mut vec![
-        Symbol::new("BTCUSD".to_string()),
-        Symbol::new("BNBUSD".to_string()),
-    ]);
-    //println!("symbols={:#?}", symbols);
-
-    let ei = ExchangeInfo::new();
+    let mut ei = ExchangeInfo::new();
+    println!("ei={:#?}", ei);
+    ei.add_symbol(Symbol::new("BTCUSD".to_string()));
+    ei.add_symbol(Symbol::new("BNBUSD".to_string()));
     println!("ei={:#?}", ei);
 
-    let symbols_hm = create_hash_map(&symbols);
+    let symbols_hm = create_hash_map(&ei.symbols);
     //println!("symbols_hm={:#?}", symbols_hm);
     println!("BTCUSD={:#?}", symbols_hm.get("BTCUSD"));
     println!("BNBUSD={:#?}", symbols_hm.get("BNBUSD"));
